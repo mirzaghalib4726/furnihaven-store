@@ -1,7 +1,7 @@
 CommonModule;
 
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -1483,7 +1483,7 @@ import { RouterModule } from '@angular/router';
     `,
   ],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   slides = [
     {
       title: 'Discover Your Perfect Furniture',
