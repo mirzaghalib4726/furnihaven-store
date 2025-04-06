@@ -14,48 +14,56 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
     ImageSearchModalComponent,
   ],
   template: `
+    <!-- Navbar Component -->
     <nav
-      class="bg-gradient-to-r from-amber-600 to-amber-400 p-4 shadow-lg relative z-10"
+      class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 p-4 shadow-lg relative z-10 w-full"
     >
-      <div class="container mx-auto flex justify-between items-center">
+      <div
+        class="flex justify-between items-center px-4 md:px-6 lg:px-8 max-w-full"
+      >
         <!-- Logo -->
         <a
           routerLink="/"
-          class="text-white text-2xl font-bold tracking-wider drop-shadow-md cursor-pointer"
-          >Furniture Haven.</a
+          class="text-white text-2xl font-bold tracking-wider drop-shadow-md hover:text-gray-400 transition-colors duration-300"
         >
+          Furniture Haven.
+        </a>
 
         <!-- Navigation Links -->
-        <div class="hidden md:flex space-x-8">
+        <div class="hidden md:flex items-center space-x-8">
           <a
             routerLink="/about"
-            class="text-white hover:text-amber-100 transition-colors duration-300 cursor-pointer"
-            >About Us</a
+            class="text-white text-lg font-medium hover:text-gray-400 transition-colors duration-300 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-gray-400 after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full"
           >
+            About Us
+          </a>
           <a
             routerLink="/brands"
-            class="text-white hover:text-amber-100 transition-colors duration-300 cursor-pointer"
-            >Brands</a
+            class="text-white text-lg font-medium hover:text-gray-400 transition-colors duration-300 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-gray-400 after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full"
           >
+            Brands
+          </a>
           <a
             routerLink="/category"
-            class="text-white hover:text-amber-100 transition-colors duration-300 cursor-pointer"
-            >Category</a
+            class="text-white text-lg font-medium hover:text-gray-400 transition-colors duration-300 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-gray-400 after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full"
           >
+            Category
+          </a>
           <a
             routerLink="/contact"
-            class="text-white hover:text-amber-100 transition-colors duration-300 cursor-pointer"
-            >Contact Us</a
+            class="text-white text-lg font-medium hover:text-gray-400 transition-colors duration-300 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-gray-400 after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full"
           >
+            Contact Us
+          </a>
         </div>
 
         <!-- Icons -->
-        <div class="flex space-x-4 items-center">
+        <div class="flex items-center space-x-4">
           <div class="flex space-x-4 z-50">
-            <!-- Higher z-index for search buttons -->
+            <!-- Search Button -->
             <button
               (click)="openSearchModal()"
-              class="text-white hover:text-amber-100"
+              class="text-white hover:text-gray-400 hover:border-gray-400 hover:border rounded-full p-1 transition-all duration-300"
             >
               <svg
                 class="w-6 h-6"
@@ -72,9 +80,10 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
                 ></path>
               </svg>
             </button>
+            <!-- Image Search Button -->
             <button
               (click)="openImageSearchModal()"
-              class="text-white hover:text-amber-100"
+              class="text-white hover:text-gray-400 hover:border-gray-400 hover:border rounded-full p-1 transition-all duration-300"
             >
               <svg
                 class="w-6 h-6"
@@ -99,9 +108,10 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
             </button>
           </div>
           <div class="flex space-x-4">
+            <!-- Cart Button -->
             <button
               (click)="navigateToCart()"
-              class="text-white relative hover:text-amber-100"
+              class="text-white relative hover:text-gray-400 hover:border-gray-400 hover:border rounded-full p-1 transition-all duration-300"
             >
               <svg
                 class="w-6 h-6"
@@ -118,13 +128,15 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
                 ></path>
               </svg>
               <span
-                class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-                >0</span
+                class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center shadow-md"
               >
+                0
+              </span>
             </button>
+            <!-- User Profile Button -->
             <button
               (click)="navigateToUserProfile()"
-              class="text-white hover:text-amber-100"
+              class="text-white hover:text-gray-400 hover:border-gray-400 hover:border rounded-full p-1 transition-all duration-300"
             >
               <svg
                 class="w-6 h-6"

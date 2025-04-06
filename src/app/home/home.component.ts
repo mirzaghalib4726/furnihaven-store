@@ -1,13 +1,22 @@
 CommonModule;
 
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  HostListener,
+  inject,
+  Injectable,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   template: `<div class="min-h-screen bg-gray-50">
     <!-- Hero Section (Slider) -->
     <section
@@ -1118,7 +1127,7 @@ import { RouterModule } from '@angular/router';
     <!-- Add the Testimonials Section here -->
     <section class="py-12 bg-gray-100">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-200 mb-8 text-center">
           What Our Customers Say
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1307,6 +1316,8 @@ import { RouterModule } from '@angular/router';
       </div>
     </section>
 
+    <!-- <br /> -->
+
     <!-- Back to Top Button -->
     <button
       (click)="scrollToTop()"
@@ -1330,8 +1341,8 @@ import { RouterModule } from '@angular/router';
     </button>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-900 text-white py-12">
-      <div class="container mx-auto px-4">
+    <footer class="bg-gray-900 text-white py-12 w-full">
+      <div class="w-full px-4 md:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Logo/Brand Section -->
           <div>
@@ -1457,10 +1468,49 @@ import { RouterModule } from '@angular/router';
           </div>
         </div>
 
+        <!-- Newsletter Signup -->
+        <div class="col-span-1 md:col-span-4 mt-8">
+          <h4 class="text-lg font-semibold mb-4">
+            Subscribe to Our Newsletter
+          </h4>
+          <p class="text-gray-400 mb-4">
+            Stay updated with our latest offers and new arrivals!
+          </p>
+          <form
+            (ngSubmit)="subscribeToNewsletter()"
+            class="flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              [(ngModel)]="newsletterEmail"
+              name="email"
+              placeholder="Enter your email"
+              class="flex-1 px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-gray-500"
+              required
+            />
+            <button
+              type="submit"
+              class="px-6 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+          <p
+            *ngIf="newsletterMessage"
+            [ngClass]="{
+              'text-green-400': newsletterSuccess,
+              'text-red-400': !newsletterSuccess
+            }"
+            class="mt-2"
+          >
+            {{ newsletterMessage }}
+          </p>
+        </div>
+
         <!-- Copyright Notice -->
         <div class="mt-8 pt-8 border-t border-gray-700 text-center">
           <p class="text-gray-400">
-            &copy; {{ currentYear }} Furniture Store. All rights reserved.
+            © {{ currentYear }} Furniture Store. All rights reserved.
           </p>
         </div>
       </div>
@@ -1468,11 +1518,11 @@ import { RouterModule } from '@angular/router';
   </div>`,
   styles: [
     `
-      .bg-peach-100 {
-        background-color: #ffe5d9;
+      .bg-gray-100 {
+        background-color: #2b3546;
       }
-      .bg-peach-300 {
-        background-color: #ffccb3;
+      .bg-gray-300 {
+        background-color: #5b5d60;
       }
       .bg-cyan-50 {
         background-color: #ecfeff;
@@ -1483,6 +1533,7 @@ import { RouterModule } from '@angular/router';
     `,
   ],
 })
+@Injectable({ providedIn: 'root' })
 export class HomeComponent implements OnInit, OnDestroy {
   slides = [
     {
@@ -1509,6 +1560,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Wishlist properties
   wishlist: boolean[] = new Array(8).fill(false); // 8 products (4 Trending + 4 Featured)
+
+  newsletterEmail: string = '';
+  newsletterMessage: string = '';
+  newsletterSuccess: boolean = false;
+
+  private http = inject(HttpClient);
 
   constructor() {}
 
@@ -1561,5 +1618,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  subscribeToNewsletter(): void {
+    if (this.newsletterEmail && this.newsletterEmail.includes('@')) {
+      this.http
+        .post('your-api-endpoint/newsletter', { email: this.newsletterEmail })
+        .subscribe({
+          next: () => {
+            this.newsletterMessage = 'Thank you for subscribing!';
+            this.newsletterSuccess = true;
+            this.newsletterEmail = '';
+          },
+          error: () => {
+            this.newsletterMessage = 'Something went wrong. Please try again.';
+            this.newsletterSuccess = false;
+          },
+        });
+    } else {
+      this.newsletterMessage = 'Please enter a valid email address.';
+      this.newsletterSuccess = false;
+    }
   }
 }
