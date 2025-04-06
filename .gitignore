@@ -21,7 +21,6 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -42,5 +41,5 @@ testem.log
 Thumbs.db
 
 # Environment Variables
-.env*
 .angular
+config.bat
