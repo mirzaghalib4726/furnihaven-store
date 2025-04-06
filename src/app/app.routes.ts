@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { ProductDetailsComponent } from './app-product-details/app-product-details.component';
 import { BrandsComponent } from './brands/brands.component';
 import { CartComponent } from './cart/cart.component';
 import { CategoryComponent } from './category/category.component';
@@ -12,6 +13,8 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'brands', component: BrandsComponent },
   { path: 'category', component: CategoryComponent },
+  { path: 'category/:id', component: CategoryComponent },
+  { path: 'product-details', component: ProductDetailsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'cart', component: CartComponent },
   { path: 'user-profile', component: UserProfileComponent },
