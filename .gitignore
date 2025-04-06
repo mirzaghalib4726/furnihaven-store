@@ -42,5 +42,5 @@ testem.log
 Thumbs.db
 
 # Environment Variables
-.env*
 .angular
+config.bat
